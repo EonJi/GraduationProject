@@ -1,0 +1,17 @@
+load data local infile 'C:\\Users\\qnrud\\Desktop\\product.txt' into table product_info fields terminated by '|' (p_name , p_category , p_brand , p_price , p_skintype , p_ingredient , p_discontinued );
+
+
+
+use cosbot;
+select product_info.p_name, p_category, product_info.p_brand, p_price, p_skintype, p_ingredient, p_discontinued, score, user_score, tag 
+from product_info 
+inner join cos_score 
+on product_info.p_name = cos_score.p_name;
+select product_info.p_name, p_category, product_info.p_brand, p_price, p_skintype, p_ingredient, p_discontinued, score, user_score, tag 
+from product_info 
+inner join cos_score 
+on product_info.p_name = cos_score.p_name
+INTO OUTFILE 'C:/Users/qnrud/Desktop/tmp/orders.txt'
+FIELDS TERMINATED BY '|'
+ENCLOSED BY ''
+LINES TERMINATED BY '\n';
